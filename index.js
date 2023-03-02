@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import postRoutes from "./routes/posts.js";
+
 const app = express();
 const router = express.Router();
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use("/", postRoutes);
 
 app.use("/.netlify/functions/api", router);
+module.exports.handler = serverless(app);
 
 const PORT = process.env.PORT || 5000;
 
