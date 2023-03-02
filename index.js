@@ -18,7 +18,10 @@ app.use("/", postRoutes);
 app.use("/.netlify/functions/api", router);
 module.exports.handler = serverless(app);
 
-const PORT = process.env.PORT || 5000;
+app.get("/", (req, res) => {
+  res.send("HELLO TO MEMORY API");
+});
+const PORT = 5000;
 
 mongoose.set("strictQuery", true);
 
