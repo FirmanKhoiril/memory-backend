@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import postRoutes from "./routes/posts.js";
 
 const app = express();
+const router = express.Router();
 dotenv.config();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -14,10 +15,9 @@ app.use(cors());
 
 app.use("/", postRoutes);
 
-app.set((req, res) => {
-  res.send("Hello to MEMORY API");
+app.get("/", (req, res) => {
+  res.send("HELLO my api");
 });
-
 const PORT = process.env.PORT || 5000;
 
 mongoose.set("strictQuery", true);
