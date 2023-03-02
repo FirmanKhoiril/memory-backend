@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import postRoutes from "./routes/posts.js";
-import serverless from "serverless-http";
 const app = express();
+const router = express.Router();
 dotenv.config();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -14,10 +14,13 @@ app.use(cors());
 
 app.use("/", postRoutes);
 
+app.use("/.netlify/functions/api", router);
+
 const PORT = process.env.PORT || 5000;
 
-app.use("", serverless(app));
+mongoose.set("strictQuery", true);
+
 mongoose
   .connect(process.env.CONNECTION_URL_MONGODB)
-  .then(() => app.listen(process.env.PORT, () => console.log(`server running on Port: ${PORT}`)))
-  .catch((error) => console.log(error));
+  .then(() => app.listen(PORT, () => console.log(`server running on Port: ${PORT}`)))
+  .catch((error) => console.log(error.message));
