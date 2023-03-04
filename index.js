@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.use("/", postRoutes);
-app.use("/users", userRoutes);
+app.use("/", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("HELLO my api");
