@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/user.js";
 
 const app = express();
 dotenv.config();
@@ -13,10 +14,12 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.use("/", postRoutes);
+app.use("/user", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("HELLO my api");
 });
+
 const PORT = process.env.PORT || 5000;
 
 mongoose.set("strictQuery", true);
